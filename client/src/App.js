@@ -1,34 +1,46 @@
+import './App.scss';
 import React from 'react';
-import Product from './views/Products';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import NewProduct from './views/NewProduct';
-//import NewProduct from './views/DeleteProduct';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import ProductForm from './components/ProductForm';
+import Products from './components/Products';
+import Inicio from './views/Inicio';
+import Detail from './components/DetailsProduct';
 
 function App() {
   return (
     <div className="App">
-    <Router>
-      <div>
-        Product Manager
+      <Router>
         <div>
-          <Link to = "/new-product">Ingresar Productos</Link>
+          <ul>
+            <li>
+              <Link to="/">Inicio</Link>
+            </li>
+            <li>
+              <Link to="/ProductForm">Crear Producto</Link>
+            </li>
+            <li>
+              <Link to="/Products">Mostrar Productos</Link>
+            </li>
+          </ul>
+          <Switch>
+            <Route exact path="/">
+              <Inicio/>
+            </Route>
+            <Route exact path="/detail/:id">
+              <Detail/>
+            </Route>
+            <Route exact path="/Edit/:id">
+              <ProductForm/>
+            </Route>
+            <Route exact path="/ProductForm">
+              <ProductForm />
+            </Route>
+            <Route exact path="/Products">
+              <Products />
+            </Route>
+          </Switch>
         </div>
-        <div>
-          <Link to = "/home">Home</Link>
-        </div>
-        <div>
-          <Link to = "/products">Mostrar Productos</Link>
-        </div>
-        <div>
-        <Link to = "/delete-product">Eliminar Productos</Link>
-        </div>
-      </div>
-        <Switch>
-            <Route path="/products"><Product /></Route>
-            <Route path="/new-product"><NewProduct /></Route>
-            {/* <Route path="/delete-product"><DeleteProduct /></Route> */}
-        </Switch>
-    </Router>
+      </Router>
     </div>
   );
 }
